@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+/* Tokens de design — Presentear.
+   Proporção: creme predominante, institucional (marrom) como marca,
+   bege de apoio, terracota em detalhes, grafite no texto. */
+@theme {
+  --color-cream: #f5efe5;
+  --color-institutional: #8b5e34; /* TODO: amostrar o hex exato da logo quando o arquivo chegar */
+  --color-institutional-deep: #6f4a28;
+  --color-beige: #d5bfa2;
+  --color-terracotta: #b87556;
+  --color-graphite: #292b24;
+  --color-olive: #35432c;
+
+  --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  background-color: var(--color-cream);
+  color: var(--color-graphite);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Foco sempre visível para navegação por teclado. */
+:focus-visible {
+  outline: 3px solid var(--color-institutional);
+  outline-offset: 2px;
+}
+
+/* Evita rolagem horizontal involuntária (requisito mobile first). */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+.font-serif {
+  font-family: var(--font-serif);
+}
