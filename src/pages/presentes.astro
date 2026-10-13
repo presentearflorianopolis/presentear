@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { produtos, categorias } from '../data';
+---
+
+<BaseLayout
+  title="Presentes — Presentear Florianópolis"
+  description="Explore as cestas de presente da Presentear por ocasião: aniversário, romântico, agradecimento, datas especiais e personalizados."
+>
+  <Header />
+  <main class="pt-24">
+    <section class="mx-auto max-w-6xl px-4 py-12 md:py-16">
+      <h1 class="font-serif text-4xl text-graphite md:text-5xl">Presentes</h1>
+      <p class="mt-3 max-w-xl text-graphite/70">
+        Escolha uma ocasião para ver as opções. Sem compra online — o atendimento é pelo
+        WhatsApp.
+      </p>
+
+      <div
+        id="filtros"
+        class="mt-6 flex flex-wrap gap-2"
+        role="group"
+        aria-label="Filtrar por ocasião"
+      >
+        <button
+          type="button"
+          data-filtro=""
+          aria-pressed="true"
+          class="rounded-full border border-institutional/40 px-4 py-2 text-sm text-graphite transition-colors hover:bg-institutional hover:text-cream aria-pressed:bg-institutional aria-pressed:text-cream"
+          >Todos</button
+        >
+        {
+          categorias.map((c) => (
+            <button
+              type="button"
+              data-filtro={c.id}
+              aria-pressed="false"
+              class="rounded-full border border-institutional/40 px-4 py-2 text-sm text-graphite transition-colors hover:bg-institutional hover:text-cream aria-pressed:bg-institutional aria-pressed:text-cream"
+            >
+              {c.nome}
+            </button>
+          ))
+        }
+      </div>
+
+      <div id="grade" class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {produtos.map((p) => <ProductCard produto={p} />)}
+      </div>
+
+      <p id="vazio" hidden class="mt-10 text-center text-graphite/60">
+        Nenhum presente nesta categoria ainda.
+      </p>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<script>
+  import '../scripts/filtro';
+</script>
