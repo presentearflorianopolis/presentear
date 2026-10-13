@@ -1,0 +1,115 @@
+---
+import { site } from '../config/site';
+import { buildWhatsAppUrl } from '../lib/whatsapp';
+import Logo from './Logo.astro';
+
+const links = [
+  { href: '/', label: 'Início' },
+  { href: '/presentes', label: 'Presentes' },
+  { href: '/presentes#ocasioes', label: 'Ocasiões' },
+  { href: '/#personalize', label: 'Personalize' },
+  { href: '/sobre', label: 'Sobre nós' },
+];
+const whatsappUrl = buildWhatsAppUrl('Olá! Vim pelo site da Presentear e gostaria de saber mais.');
+---
+
+<header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-colors duration-300">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:py-4">
+    <Logo />
+
+    <nav aria-label="Principal" class="hidden items-center gap-6 md:flex">
+      {
+        links.map((l) => (
+          <a
+            href={l.href}
+            class="text-sm text-graphite/80 transition-colors hover:text-institutional"
+          >
+            {l.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener"
+        data-track="cta_whatsapp"
+        class="hidden rounded-full bg-institutional px-4 py-2 text-sm font-medium text-cream transition-colors hover:bg-institutional-deep sm:inline-flex"
+        >WhatsApp</a
+      >
+      <button
+        id="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Abrir menu"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-md text-graphite md:hidden"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          aria-hidden="true"
+        >
+          <path d="M3 6h18M3 12h18M3 18h18"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" hidden class="border-t border-beige/60 bg-cream md:hidden">
+    <nav aria-label="Menu móvel" class="mx-auto flex max-w-6xl flex-col px-4 py-2">
+      {
+        links.map((l) => (
+          <a href={l.href} class="border-b border-beige/40 py-3 text-graphite last:border-0">
+            {l.label}
+          </a>
+        ))
+      }
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener"
+        data-track="cta_whatsapp"
+        class="mb-3 mt-2 inline-flex justify-center rounded-full bg-institutional px-4 py-3 font-medium text-cream"
+        >Falar no WhatsApp</a
+      >
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header');
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  if (header && toggle && menu) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+      menu.hidden = !open;
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (menu.hidden) return;
+      if (!header.contains(e.target as Node)) setOpen(false);
+    });
+
+    const onScroll = () => header.classList.toggle('bg-cream', window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+</script>
