@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('rodapé tem Instagram e WhatsApp, sem link de política ainda', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('./');
   const f = page.locator('footer');
   await expect(f.getByRole('link', { name: /instagram/i })).toHaveAttribute(
     'href',

@@ -1,13 +1,13 @@
 import { test, expect } from '@playwright/test';
 
 const paginas = [
-  '/',
-  '/presentes',
-  '/contato',
-  '/sobre',
-  '/presentes/caixa-presente',
-  '/presentes/caixa-sossego',
-  '/presentes/caixa-bolo',
+  './',
+  'presentes',
+  'contato',
+  'sobre',
+  'presentes/caixa-presente',
+  'presentes/caixa-sossego',
+  'presentes/caixa-bolo',
 ];
 
 test('cada página tem um h1 e descrição', async ({ page }) => {
@@ -29,7 +29,7 @@ test('cada página tem Open Graph, Twitter card e canonical', async ({ page }) =
 });
 
 test('robots.txt aponta o sitemap', async ({ request }) => {
-  const res = await request.get('/robots.txt');
+  const res = await request.get('robots.txt');
   expect(res.ok()).toBeTruthy();
   const body = await res.text();
   expect(body).toMatch(/Sitemap:/i);

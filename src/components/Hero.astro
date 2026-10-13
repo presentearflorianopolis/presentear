@@ -1,5 +1,6 @@
 ---
 import { site } from '../config/site';
+import { comBase } from '../lib/base';
 import PlaceholderImage from './PlaceholderImage.astro';
 import destaque from '../assets/produtos/caixa-presente.jpg';
 ---
@@ -16,7 +17,7 @@ import destaque from '../assets/produtos/caixa-presente.jpg';
         {site.mensagemComplementar}
       </p>
       <a
-        href="/presentes"
+        href={comBase('/presentes')}
         class="mt-8 inline-flex rounded-full bg-institutional px-7 py-3.5 text-sm font-medium uppercase tracking-wide text-cream transition-colors hover:bg-institutional-deep"
       >
         {site.textos.heroCta}

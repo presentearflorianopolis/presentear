@@ -1,6 +1,7 @@
 ---
 import type { Produto } from '../data/produtos';
 import { buildProdutoUrl } from '../lib/whatsapp';
+import { comBase } from '../lib/base';
 import { site } from '../config/site';
 import PlaceholderImage from './PlaceholderImage.astro';
 
@@ -46,7 +47,7 @@ const url = buildProdutoUrl(produto.nome);
 
   <div class="mt-4 flex flex-wrap items-center gap-3">
     <a
-      href={`/presentes/${produto.id}`}
+      href={comBase(`/presentes/${produto.id}`)}
       data-track="saiba_mais"
       aria-label={`Saiba mais sobre ${produto.nome}`}
       class="inline-flex items-center gap-2 rounded-full border border-institutional px-5 py-2.5 text-sm font-medium text-institutional transition-colors hover:bg-institutional hover:text-cream"

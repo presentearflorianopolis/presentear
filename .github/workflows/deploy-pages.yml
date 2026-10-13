@@ -1,0 +1,67 @@
+name: Publicar no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Uma publicação por vez; não cancela a que já está no ar.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Checar tipos/config
+        run: npm run check
+
+      - name: Testes unitários
+        run: npm run test
+
+      - name: Build
+        run: npm run build
+
+      - name: Conferir que links internos usam o base
+        run: |
+          base=$(node --input-type=module -e "import('./astro.config.mjs').then(m => console.log(m.default.base ?? ''))")
+          base="${base%/}"
+          echo "base do deploy: '${base}'"
+          esperado="\"${base}"
+          escaparam=$(grep -rhoE '(href|src)="/[^"]*"' dist --include=*.html \
+            | sort -u | grep -v "$esperado" || true)
+          if [ -n "$escaparam" ]; then
+            echo "Caminhos internos sem o base (devem passar por comBase()):" >&2
+            echo "$escaparam" >&2
+            exit 1
+          fi
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

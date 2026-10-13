@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test('conteúdo visível com movimento reduzido', async ({ browser }) => {
   const ctx = await browser.newContext({ reducedMotion: 'reduce' });
   const page = await ctx.newPage();
-  await page.goto('/');
+  await page.goto('./');
 
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   await expect(page.getByRole('heading', { name: /escolhas que encantam/i })).toBeVisible();

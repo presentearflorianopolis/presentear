@@ -10,20 +10,22 @@ virtual — sem carrinho, checkout ou pagamento.
 
 ## Requisitos
 
-- Node.js 20+ (desenvolvido com Node 24)
+- Node.js 22.12+ (exigido pelo Astro 7; desenvolvido com Node 24)
 - npm
 
 ## Comandos
 
 ```bash
 npm install            # dependências
-npm run dev            # servidor de desenvolvimento (http://localhost:4321)
+npm run dev            # servidor de desenvolvimento (http://localhost:4321/presentear/)
 npm run build          # build estático em dist/
 npm run preview        # pré-visualiza o build
 npm run check          # astro check (tipos/config)
 npm run test           # testes unitários (Vitest)
 npm run test:e2e       # testes end-to-end (Playwright)
 ```
+
+O site é servido sob o `base` do Astro (`/presentear/`) — inclusive em desenvolvimento.
 
 Primeira vez que roda e2e: `npx playwright install chromium`.
 
@@ -35,8 +37,10 @@ Copie `.env.example` para `.env` e preencha conforme disponível:
 |---|---|
 | `PUBLIC_FORM_ENDPOINT` | URL do Web App do Google Apps Script que recebe o formulário. **Vazio** até o endpoint real ser publicado — nesse caso o site mostra erro + atalho de WhatsApp (nunca sucesso falso). |
 
-O `site` (domínio) fica no `astro.config.mjs` e alimenta canonical/sitemap. Hoje é
-um **placeholder** (`https://presentear.example.com`) — substituir pelo domínio real.
+O `site` e o `base` ficam no `astro.config.mjs` e alimentam canonical/sitemap.
+Hoje: `site: https://presentearflorianopolis.github.io` + `base: /presentear`
+(GitHub Pages). Ao migrar para um domínio próprio, trocar o `site` pelo domínio e
+**remover** o `base`.
 
 ## Estrutura
 
@@ -85,7 +89,26 @@ Ver §15 e §17 do documento de design. Resumo:
 
 ## Deploy
 
-Site **estático** (SSG). Sem adapter — publicar `dist/` na Vercel (o formulário é
-enviado por `fetch` no cliente para o Apps Script). Passos: `npx astro sync &&
-npm run check && npm run build`, conferir que `dist/` está preenchido e publicar.
-Repositório no GitHub e deploy na Vercel são feitos após a aprovação local.
+Site **estático** (SSG), publicado no **GitHub Pages** pelo workflow
+[`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) a cada
+push na `main`:
+
+- **URL:** https://presentearflorianopolis.github.io/presentear/
+- **Repositório público** — no plano gratuito o Pages só publica de repo público.
+- O site roda em um **subcaminho** (`base: /presentear`). Todo link interno passa
+  por `comBase()` (`src/lib/base.ts`); não escreva `href="/..."` na mão.
+- O formulário continua sendo enviado por `fetch` no cliente para o Apps Script.
+
+Antes de publicar, confira que nenhum link interno escapou do `base`:
+
+```bash
+npm run build
+grep -rhoE '(href|src)="/[^"]*"' dist --include=*.html | sort -u | grep -v '"/presentear'
+# saída vazia = ok
+```
+
+**Domínio próprio:** trocar o `site` pelo domínio e remover o `base` no
+`astro.config.mjs` (e ajustar a constante `BASE` em `tests/e2e/base.ts`).
+
+**Pré-visualizar o build:** `npm run build && npm run preview` (serve em
+`http://localhost:4321/presentear/`).

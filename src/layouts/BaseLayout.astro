@@ -5,6 +5,7 @@ import '@fontsource/cormorant-garamond/600.css';
 import '@fontsource/dm-sans/400.css';
 import '@fontsource/dm-sans/500.css';
 import '../styles/global.css';
+import { comBase } from '../lib/base';
 import { site } from '../config/site';
 
 interface Props {
@@ -14,15 +15,16 @@ interface Props {
 }
 
 const { title, description, canonicalPath } = Astro.props;
-const canonical = new URL(canonicalPath ?? Astro.url.pathname, Astro.site).href;
-const ogImage = new URL('/og-image.png', Astro.site).href;
+const canonical = new URL(canonicalPath ? comBase(canonicalPath) : Astro.url.pathname, Astro.site)
+  .href;
+const ogImage = new URL(comBase('/og-image.png'), Astro.site).href;
 
 // JSON-LD só com dados reais — sem endereço/CNPJ inventados.
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: site.name,
-  url: Astro.site?.href,
+  url: new URL(comBase('/'), Astro.site).href,
   sameAs: [site.instagramUrl],
 };
 ---
@@ -35,8 +37,8 @@ const jsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="icon" type="image/png" href={comBase('/favicon.png')} />
+    <link rel="apple-touch-icon" href={comBase('/favicon.png')} />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />

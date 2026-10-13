@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('home tem as seções principais', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('./');
   for (const h of [
     /momentos que ficam/i,
     /escolhas que encantam/i,

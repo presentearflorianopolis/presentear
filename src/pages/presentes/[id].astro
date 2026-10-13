@@ -6,6 +6,7 @@ import PlaceholderImage from '../../components/PlaceholderImage.astro';
 import { produtos } from '../../data';
 import type { Produto } from '../../data/produtos';
 import { buildProdutoUrl } from '../../lib/whatsapp';
+import { comBase } from '../../lib/base';
 import { site } from '../../config/site';
 
 interface Props {
@@ -30,7 +31,7 @@ const url = buildProdutoUrl(produto.nome);
     <section class="mx-auto grid max-w-6xl items-start gap-10 px-4 py-12 md:grid-cols-2 md:py-16">
       <div data-reveal>
         <a
-          href="/presentes"
+          href={comBase('/presentes')}
           class="text-sm text-graphite/60 transition-colors hover:text-institutional"
         >
           ← {site.textos.produtoVoltar}

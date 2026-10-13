@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.png';
+import { comBase } from '../lib/base';
 import { site } from '../config/site';
 
 // Usa o arquivo real da logo (fundo branco removido, arte intacta).
@@ -15,6 +16,6 @@ interface Props {
 const { class: className = 'h-14 w-auto md:h-16' } = Astro.props;
 ---
 
-<a href="/" class="block shrink-0" aria-label={`${site.name} — página inicial`}>
+<a href={comBase('/')} class="block shrink-0" aria-label={`${site.name} — página inicial`}>
   <Image src={logo} alt="" class={className} loading="eager" fetchpriority="high" />
 </a>

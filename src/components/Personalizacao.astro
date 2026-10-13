@@ -1,5 +1,6 @@
 ---
 import { site } from '../config/site';
+import { comBase } from '../lib/base';
 import PlaceholderImage from './PlaceholderImage.astro';
 import personalizado from '../assets/produtos/caixa-sossego.jpg';
 ---
@@ -18,7 +19,7 @@ import personalizado from '../assets/produtos/caixa-sossego.jpg';
       </h2>
       <p class="mt-4 max-w-md text-cream/85">{site.textos.personalizacaoTexto}</p>
       <a
-        href="/contato"
+        href={comBase('/contato')}
         data-track="cta_personalize"
         class="mt-8 inline-flex rounded-full bg-cream px-7 py-3.5 text-sm font-medium uppercase tracking-wide text-institutional transition-colors hover:bg-beige"
       >

@@ -6,7 +6,7 @@ const injetaDataLayer = () => {
 
 test('clique no CTA de WhatsApp emite evento', async ({ page }) => {
   await page.addInitScript(injetaDataLayer);
-  await page.goto('/');
+  await page.goto('./');
   await page.locator('header').getByRole('link', { name: /whatsapp/i }).click();
   const eventos = await page.evaluate(
     () => (window as unknown as { dataLayer: { event: string }[] }).dataLayer,
@@ -16,7 +16,7 @@ test('clique no CTA de WhatsApp emite evento', async ({ page }) => {
 
 test('clique por produto emite evento', async ({ page }) => {
   await page.addInitScript(injetaDataLayer);
-  await page.goto('/');
+  await page.goto('./');
   await page.getByRole('link', { name: /quero este presente/i }).first().click();
   const eventos = await page.evaluate(
     () => (window as unknown as { dataLayer: { event: string }[] }).dataLayer,

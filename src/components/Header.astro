@@ -1,5 +1,6 @@
 ---
 import { buildWhatsAppUrl } from '../lib/whatsapp';
+import { comBase } from '../lib/base';
 import Logo from './Logo.astro';
 
 const links = [
@@ -19,7 +20,7 @@ const whatsappUrl = buildWhatsAppUrl('Olá! Vim pelo site da Presentear e gostar
       {
         links.map((l) => (
           <a
-            href={l.href}
+            href={comBase(l.href)}
             class="text-sm text-graphite/80 transition-colors hover:text-institutional"
           >
             {l.label}
@@ -64,7 +65,7 @@ const whatsappUrl = buildWhatsAppUrl('Olá! Vim pelo site da Presentear e gostar
     <nav aria-label="Menu móvel" class="mx-auto flex max-w-6xl flex-col px-4 py-2">
       {
         links.map((l) => (
-          <a href={l.href} class="border-b border-beige/40 py-3 text-graphite last:border-0">
+          <a href={comBase(l.href)} class="border-b border-beige/40 py-3 text-graphite last:border-0">
             {l.label}
           </a>
         ))
