@@ -27,5 +27,8 @@ const canonical = new URL(canonicalPath ?? Astro.url.pathname, Astro.site).href;
   </head>
   <body>
     <slot />
+    <script>
+      import '../scripts/reveal';
+    </script>
   </body>
 </html>
