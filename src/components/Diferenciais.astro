@@ -1,0 +1,36 @@
+---
+import { diferenciais } from '../data';
+
+const icones: Record<string, string> = {
+  gift: 'M20 12v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9M2 7h20v5H2zM12 22V7M12 7a3 3 0 1 0-3-3c0 2 3 3 3 3zm0 0a3 3 0 1 1 3-3c0 2-3 3-3 3z',
+  sparkles: 'M12 3l1.9 4.6L18.5 9.5 13.9 11.4 12 16l-1.9-4.6L5.5 9.5l4.6-1.9zM19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z',
+  chat: 'M21 11.5a8.4 8.4 0 0 1-8.5 8.5 8.6 8.6 0 0 1-3.9-.9L3 21l1.9-5.6A8.4 8.4 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z',
+  calendar: 'M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z',
+};
+---
+
+<section class="border-y border-beige/50 bg-beige/20" data-section="diferenciais">
+  <ul
+    class="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-8 px-4 py-10 sm:grid-cols-4 md:py-12"
+  >
+    {
+      diferenciais.map((d) => (
+        <li class="flex flex-col items-center gap-3 text-center">
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.4"
+            class="text-institutional"
+            aria-hidden="true"
+          >
+            <path d={icones[d.icone] ?? icones.gift} />
+          </svg>
+          <span class="text-sm text-graphite/80">{d.titulo}</span>
+        </li>
+      ))
+    }
+  </ul>
+</section>
