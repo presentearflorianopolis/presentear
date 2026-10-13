@@ -44,13 +44,23 @@ const url = buildProdutoUrl(produto.nome);
   <h3 class="mt-3 font-serif text-2xl text-graphite">{produto.nome}</h3>
   <p class="mt-1 text-sm text-graphite/70">{produto.descricao}</p>
 
-  <a
-    href={url}
-    target="_blank"
-    rel="noopener"
-    data-track="clique_produto"
-    class="mt-4 inline-flex items-center gap-2 self-start rounded-full border border-institutional px-5 py-2.5 text-sm font-medium text-institutional transition-colors hover:bg-institutional hover:text-cream"
-  >
-    {site.textos.ctaProduto}
-  </a>
+  <div class="mt-4 flex flex-wrap items-center gap-3">
+    <a
+      href={`/presentes/${produto.id}`}
+      data-track="saiba_mais"
+      aria-label={`Saiba mais sobre ${produto.nome}`}
+      class="inline-flex items-center gap-2 rounded-full border border-institutional px-5 py-2.5 text-sm font-medium text-institutional transition-colors hover:bg-institutional hover:text-cream"
+    >
+      {site.textos.ctaSaibaMais}
+    </a>
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener"
+      data-track="clique_produto"
+      class="inline-flex items-center gap-2 rounded-full bg-institutional px-5 py-2.5 text-sm font-medium text-cream transition-colors hover:bg-institutional-deep"
+    >
+      {site.textos.ctaProduto}
+    </a>
+  </div>
 </article>

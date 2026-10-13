@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PlaceholderImage from '../../components/PlaceholderImage.astro';
+import { produtos } from '../../data';
+import type { Produto } from '../../data/produtos';
+import { buildProdutoUrl } from '../../lib/whatsapp';
+import { site } from '../../config/site';
+
+interface Props {
+  produto: Produto;
+}
+
+export function getStaticPaths() {
+  return produtos.map((produto) => ({ params: { id: produto.id }, props: { produto } }));
+}
+
+const { produto } = Astro.props as Props;
+const url = buildProdutoUrl(produto.nome);
+---
+
+<BaseLayout
+  title={`${produto.nome} — ${site.tagline}`}
+  description={produto.descricao}
+  canonicalPath={`/presentes/${produto.id}`}
+>
+  <Header />
+  <main class="pt-28">
+    <section class="mx-auto grid max-w-6xl items-start gap-10 px-4 py-12 md:grid-cols-2 md:py-16">
+      <div data-reveal>
+        <a
+          href="/presentes"
+          class="text-sm text-graphite/60 transition-colors hover:text-institutional"
+        >
+          ← {site.textos.produtoVoltar}
+        </a>
+
+        <h1 class="mt-4 font-serif text-4xl text-graphite md:text-5xl">{produto.nome}</h1>
+
+        {
+          produto.etiqueta && (
+            <span class="mt-4 inline-block rounded-full bg-terracotta/15 px-3 py-1 text-[0.65rem] uppercase tracking-[0.2em] text-terracotta">
+              {produto.etiqueta}
+            </span>
+          )
+        }
+
+        <p class="mt-4 max-w-md text-graphite/75">{produto.descricaoLonga}</p>
+
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener"
+          data-track="clique_produto"
+          class="mt-8 inline-flex items-center gap-2 rounded-full bg-institutional px-7 py-3.5 text-sm font-medium uppercase tracking-wide text-cream transition-colors hover:bg-institutional-deep"
+        >
+          {site.textos.ctaProduto}
+        </a>
+      </div>
+
+      <div class="space-y-4" data-reveal data-reveal-delay="150">
+        <PlaceholderImage
+          src={produto.imagem}
+          alt={produto.imagemAlt}
+          aspect="aspect-[4/5]"
+          class="w-full rounded-2xl"
+        />
+        {
+          produto.fotosExtras.map((foto) => (
+            <PlaceholderImage
+              src={foto.src}
+              alt={foto.alt}
+              aspect="aspect-[4/5]"
+              class="w-full rounded-2xl"
+            />
+          ))
+        }
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

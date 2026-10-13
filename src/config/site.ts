@@ -9,6 +9,10 @@ export interface SiteTextos {
   ctaFinalTitulo: string;
   ctaFinalBotao: string;
   ctaProduto: string;
+  /** Botão do card que abre a página interna da caixa. */
+  ctaSaibaMais: string;
+  /** Link da página interna de volta para a lista de caixas. */
+  produtoVoltar: string;
 }
 
 export interface SiteConfig {
@@ -63,5 +67,7 @@ export const site: SiteConfig = {
     ctaFinalTitulo: 'Vamos transformar seu carinho em presente?',
     ctaFinalBotao: 'FALE COM A PRESENTEAR',
     ctaProduto: 'QUERO ESTE PRESENTE',
+    ctaSaibaMais: 'SAIBA MAIS',
+    produtoVoltar: 'Todas as caixas',
   },
 };

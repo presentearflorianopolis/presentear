@@ -1,6 +1,14 @@
 import { test, expect } from '@playwright/test';
 
-const paginas = ['/', '/presentes', '/contato', '/sobre'];
+const paginas = [
+  '/',
+  '/presentes',
+  '/contato',
+  '/sobre',
+  '/presentes/caixa-presente',
+  '/presentes/caixa-sossego',
+  '/presentes/caixa-bolo',
+];
 
 test('cada página tem um h1 e descrição', async ({ page }) => {
   for (const path of paginas) {

@@ -49,7 +49,7 @@ src/
   scripts/              # formulário, reveal on scroll, tracking
   components/           # Header, Footer, Hero, ProductCard, OrcamentoForm, ...
   layouts/BaseLayout.astro
-  pages/                # index, presentes, contato, sobre, robots.txt
+  pages/                # index, presentes, presentes/[id], contato, sobre, robots.txt
   styles/global.css     # tokens de design (Tailwind v4 @theme)
 public/
   favicon.png           # ícone do site (gerado da logo)
@@ -67,8 +67,11 @@ Ver §15 e §17 do documento de design. Resumo:
   referência fornecidas. Elas têm marca-d'água de outra marca ("Par Tuu Receber") e
   o selo "Imagem ilustrativa" — precisam ser trocadas pelas fotos próprias da
   Presentear (substituir os arquivos em `src/assets/produtos/`).
+- **Fotos extras** das caixas: as 3 fotos enviadas pela proprietária (uma por caixa)
+  já aparecem nas páginas internas, junto da capa (`src/assets/produtos/caixa-*-2.*`).
 - **Texto do "Sobre"** (hoje placeholder).
-- **Nomes/descrições finais** dos produtos (provisórios).
+- **Nomes/descrições finais** das caixas (provisórios). A descrição longa de cada
+  caixa aparece na página interna (`/presentes/<id>`) já marcada como "em preparação".
 - **Logo**: já integrada a partir do arquivo fornecido, com o fundo branco removido
   (arte intacta) em `src/assets/logo.png`; favicon e imagem de compartilhamento
   gerados a partir dela. Faltam: versão editável (SVG) e amostrar o marrom exato

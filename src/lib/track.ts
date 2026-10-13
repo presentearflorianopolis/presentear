@@ -2,6 +2,7 @@ export type EventName =
   | 'cta_whatsapp'
   | 'cta_personalize'
   | 'clique_produto'
+  | 'saiba_mais'
   | 'envio_orcamento';
 
 /**
