@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
@@ -8,6 +9,7 @@ export default defineConfig({
   site: 'https://presentear.example.com',
   // Sem barra de ferramentas de dev (evita ruído no DOM e nos testes e2e).
   devToolbar: { enabled: false },
+  integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
   },
