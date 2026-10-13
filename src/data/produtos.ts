@@ -1,46 +1,49 @@
+import type { ImageMetadata } from 'astro';
+import caixaPresente from '../assets/produtos/caixa-presente.jpg';
+import caixaSossego from '../assets/produtos/caixa-sossego.jpg';
+import caixaBolo from '../assets/produtos/caixa-bolo.jpg';
+
 export interface Produto {
   id: string;
   nome: string;
   descricao: string;
-  categoriaId: string;
   /** Etiqueta só deve existir quando for verdadeira (ex.: "Personalizável"). */
   etiqueta?: string;
   /** `null` = sem foto real ainda → usar placeholder. */
-  imagem: string | null;
+  imagem: ImageMetadata | null;
   imagemAlt: string;
 }
 
 /**
- * Produtos iniciais.
+ * Presentes.
  *
- * TODO: nomes e descrições são PROVISÓRIOS (derivados das imagens de referência,
- * que têm marca-d'água de terceiros) e devem ser confirmados/substituídos pela
- * proprietária. Sem fotos reais → `imagem: null`.
+ * ATENÇÃO (temporário): as fotos atuais são as IMAGENS DE REFERÊNCIA fornecidas,
+ * que têm marca-d'água de outra marca ("Par Tuu Receber") e o selo "Imagem
+ * ilustrativa" — usadas aqui só para apresentação. Substituir pelas fotos reais
+ * da Presentear (trocar os arquivos em `src/assets/produtos/`). As descrições
+ * também são provisórias e devem ser confirmadas pela proprietária.
  */
 export const produtos: Produto[] = [
   {
-    id: 'cesta-celebracao',
-    nome: 'Cesta Celebração',
+    id: 'caixa-presente',
+    nome: 'Caixa Presente',
     descricao: 'Caixa de madeira com espumante, balão personalizado e flores secas.',
-    categoriaId: 'datas-especiais',
-    imagem: null,
-    imagemAlt: 'Cesta de madeira com espumante, balão e flores secas',
+    imagem: caixaPresente,
+    imagemAlt: 'Caixa de madeira com espumante, balão e flores secas',
   },
   {
-    id: 'cesta-parabens',
-    nome: 'Cesta Parabéns',
-    descricao: 'Arranjo de balões coloridos com bolo e cartão comemorativo.',
-    categoriaId: 'aniversario',
-    imagem: null,
-    imagemAlt: 'Cesta de aniversário com balões coloridos, bolo e cartão',
-  },
-  {
-    id: 'cesta-personalizada',
-    nome: 'Cesta Personalizada',
+    id: 'caixa-sossego',
+    nome: 'Caixa Sossego',
     descricao: 'Caneca personalizada com inicial, chocolates e flores secas.',
-    categoriaId: 'personalizados',
     etiqueta: 'Personalizável',
-    imagem: null,
-    imagemAlt: 'Cesta com caneca personalizada, chocolates e flores secas',
+    imagem: caixaSossego,
+    imagemAlt: 'Caixa com caneca personalizada, chocolates e flores secas',
+  },
+  {
+    id: 'caixa-bolo',
+    nome: 'Caixa com Bolo',
+    descricao: 'Arranjo de balões coloridos com bolo e cartão comemorativo.',
+    imagem: caixaBolo,
+    imagemAlt: 'Caixa com bolo, balões coloridos e cartão',
   },
 ];

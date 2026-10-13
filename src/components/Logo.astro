@@ -1,12 +1,20 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
 import { site } from '../config/site';
 
-// Placeholder tipográfico: substituir pelo arquivo real da logo quando ele chegar.
-// NÃO recriar/modificar a logomarca sem autorização.
+// Usa o arquivo real da logo (fundo branco removido, arte intacta).
+// O arquivo é servido/otimizado pelo Astro (`astro:assets`).
+// NÃO recriar/modificar/recolorir a logomarca.
+
+interface Props {
+  /** Classes de tamanho da imagem (default: tamanho do header). */
+  class?: string;
+}
+
+const { class: className = 'h-14 w-auto md:h-16' } = Astro.props;
 ---
-<a href="/" class="block leading-none" aria-label={`${site.name} — página inicial`}>
-  <span class="block font-serif text-2xl tracking-wide text-institutional">{site.name}</span>
-  <span class="mt-0.5 block text-[0.6rem] uppercase tracking-[0.3em] text-graphite/60"
-    >Florianópolis</span
-  >
+
+<a href="/" class="block shrink-0" aria-label={`${site.name} — página inicial`}>
+  <Image src={logo} alt="" class={className} loading="eager" fetchpriority="high" />
 </a>

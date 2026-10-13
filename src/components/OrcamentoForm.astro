@@ -1,5 +1,5 @@
 ---
-import { categorias } from '../data';
+import { site } from '../config/site';
 import { buildWhatsAppUrl } from '../lib/whatsapp';
 
 const waFallback = buildWhatsAppUrl(
@@ -35,7 +35,7 @@ const labelCls = 'block text-sm font-medium text-graphite';
     <label class={labelCls} for="ocasiao">Ocasião*</label>
     <select id="ocasiao" name="ocasiao" class={inputCls}>
       <option value="">Selecione…</option>
-      {categorias.map((c) => <option value={c.id}>{c.nome}</option>)}
+      {site.ocasioesFormulario.map((o) => <option value={o}>{o}</option>)}
     </select>
     <p id="erro-ocasiao" class="mt-1 text-sm text-terracotta" hidden></p>
   </div>

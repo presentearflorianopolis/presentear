@@ -43,13 +43,17 @@ um **placeholder** (`https://presentear.example.com`) — substituir pelo domín
 ```
 src/
   config/site.ts        # WhatsApp, Instagram, textos, e-mail, endpoint do formulário
-  data/                 # produtos, categorias (ocasiões), diferenciais
+  data/                 # produtos, diferenciais
+  assets/               # logo (fundo transparente) e fotos dos produtos
   lib/                  # whatsapp, phone (máscara BR), orcamento (validação), track
-  scripts/              # filtro do catálogo, formulário, reveal on scroll
+  scripts/              # formulário, reveal on scroll, tracking
   components/           # Header, Footer, Hero, ProductCard, OrcamentoForm, ...
   layouts/BaseLayout.astro
   pages/                # index, presentes, contato, sobre, robots.txt
   styles/global.css     # tokens de design (Tailwind v4 @theme)
+public/
+  favicon.png           # ícone do site (gerado da logo)
+  og-image.png          # imagem de compartilhamento (Open Graph)
 ```
 
 **Tudo configurável vive em `src/config` e `src/data`** — nenhum telefone, link ou
@@ -59,12 +63,16 @@ dado comercial espalhado pelo código.
 
 Ver §15 e §17 do documento de design. Resumo:
 
-- **Fotos reais** dos produtos (hoje há placeholders; as referências tinham
-  marca-d'água de terceiros e não podem ir ao ar).
+- **Fotos reais** dos produtos: hoje o site usa **temporariamente** as imagens de
+  referência fornecidas. Elas têm marca-d'água de outra marca ("Par Tuu Receber") e
+  o selo "Imagem ilustrativa" — precisam ser trocadas pelas fotos próprias da
+  Presentear (substituir os arquivos em `src/assets/produtos/`).
 - **Texto do "Sobre"** (hoje placeholder).
 - **Nomes/descrições finais** dos produtos (provisórios).
-- **Arquivo da logo** em alta/transparente (hoje há um wordmark tipográfico provisório;
-  o marrom `#8B5E34` também é provisório até amostrar da logo).
+- **Logo**: já integrada a partir do arquivo fornecido, com o fundo branco removido
+  (arte intacta) em `src/assets/logo.png`; favicon e imagem de compartilhamento
+  gerados a partir dela. Faltam: versão editável (SVG) e amostrar o marrom exato
+  (a logo usa ~`#784800`; o token `--color-institutional` ainda é `#8B5E34`).
 - **Google Apps Script** (planilha + e-mail): montado **após aprovação local**, com
   acesso ao Google da proprietária. Define `PUBLIC_FORM_ENDPOINT`.
 - **E-mail de destino** dos leads.

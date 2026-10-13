@@ -1,11 +1,12 @@
 ---
 import { site } from '../config/site';
 import PlaceholderImage from './PlaceholderImage.astro';
+import destaque from '../assets/produtos/caixa-presente.jpg';
 ---
 
 <section class="relative overflow-hidden bg-cream" data-section="hero">
   <div
-    class="mx-auto grid max-w-6xl items-center gap-8 px-4 pb-16 pt-28 md:grid-cols-2 md:gap-12 md:pb-24 md:pt-36"
+    class="mx-auto grid max-w-6xl items-center gap-8 px-4 pb-16 pt-32 md:grid-cols-2 md:gap-12 md:pb-24 md:pt-40"
   >
     <div class="order-2 md:order-1" data-reveal>
       <h1 class="font-serif text-4xl leading-[1.05] text-graphite sm:text-5xl md:text-6xl">
@@ -24,7 +25,8 @@ import PlaceholderImage from './PlaceholderImage.astro';
 
     <div class="order-1 md:order-2" data-reveal data-reveal-delay="150">
       <PlaceholderImage
-        alt="Cesta Presentear em destaque"
+        alt="Cesta de celebração da Presentear com espumante"
+        src={destaque}
         aspect="aspect-[4/5]"
         class="w-full"
       />

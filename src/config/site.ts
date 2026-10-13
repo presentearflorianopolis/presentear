@@ -26,6 +26,8 @@ export interface SiteConfig {
   email: string;
   /** Endpoint do formulário (Apps Script). Vazio = dependente de configuração. */
   formEndpoint: string;
+  /** Opções do campo "Ocasião" do formulário de orçamento (não é navegação). */
+  ocasioesFormulario: string[];
   textos: SiteTextos;
 }
 
@@ -41,6 +43,14 @@ export const site: SiteConfig = {
   instagramUrl: 'https://instagram.com/PresentearFlorianopolis',
   email: '',
   formEndpoint: (import.meta.env?.PUBLIC_FORM_ENDPOINT as string | undefined) ?? '',
+  ocasioesFormulario: [
+    'Aniversário',
+    'Romântico',
+    'Agradecimento',
+    'Datas especiais',
+    'Presente personalizado',
+    'Outro',
+  ],
   textos: {
     heroCta: 'ENCONTRE SEU PRESENTE',
     personalizacaoTitulo: 'Cada detalhe pode dizer muito.',

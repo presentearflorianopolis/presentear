@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PlaceholderImage from '../components/PlaceholderImage.astro';
 import { site } from '../config/site';
+import foto from '../assets/produtos/caixa-presente.jpg';
 ---
 
 <BaseLayout
@@ -11,7 +12,7 @@ import { site } from '../config/site';
   description="Conheça a Presentear: presentes criativos, personalizados e montados com cuidado em Florianópolis."
 >
   <Header />
-  <main class="pt-24">
+  <main class="pt-28">
     <section class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-16">
       <div>
         <h1 class="font-serif text-4xl text-graphite md:text-5xl">{site.textos.sobreTitulo}</h1>
@@ -19,10 +20,10 @@ import { site } from '../config/site';
         <p class="mt-5 text-graphite/75">{site.textos.sobreTexto}</p>
       </div>
       <PlaceholderImage
-        alt="Retrato/ambiente da Presentear"
+        alt="Presente da Presentear em destaque"
+        src={foto}
         aspect="aspect-[4/5]"
         class="w-full"
-        label="Imagem pendente"
       />
     </section>
   </main>
