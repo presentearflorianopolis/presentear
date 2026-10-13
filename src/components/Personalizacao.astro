@@ -1,0 +1,28 @@
+---
+import { site } from '../config/site';
+import PlaceholderImage from './PlaceholderImage.astro';
+---
+
+<section id="personalize" class="bg-institutional text-cream" data-section="personalizacao">
+  <div class="mx-auto grid max-w-6xl items-center gap-8 px-4 py-16 md:grid-cols-2 md:gap-12 md:py-24">
+    <PlaceholderImage
+      alt="Detalhe de embalagem e cartão personalizado da Presentear"
+      aspect="aspect-[4/3]"
+      class="w-full"
+      label="Imagem pendente"
+    />
+    <div>
+      <h2 class="font-serif text-3xl leading-tight md:text-4xl">
+        {site.textos.personalizacaoTitulo}
+      </h2>
+      <p class="mt-4 max-w-md text-cream/85">{site.textos.personalizacaoTexto}</p>
+      <a
+        href="/contato"
+        data-track="cta_whatsapp"
+        class="mt-8 inline-flex rounded-full bg-cream px-7 py-3.5 text-sm font-medium uppercase tracking-wide text-institutional transition-colors hover:bg-beige"
+      >
+        {site.textos.personalizacaoCta}
+      </a>
+    </div>
+  </div>
+</section>
