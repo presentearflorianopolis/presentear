@@ -8,3 +8,7 @@ dist/
 .DS_Store
 playwright-report/
 test-results/
+
+# OpenCode: config local do projeto (pode conter segredos, ex.: PAT do GitHub MCP)
+opencode.jsonc
+.opencode/
