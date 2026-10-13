@@ -1,0 +1,33 @@
+---
+interface Props {
+  alt: string;
+  /** Classe de proporção do Tailwind, ex.: 'aspect-[4/5]'. */
+  aspect?: string;
+  label?: string;
+  /** `null`/ausente = imagem real ainda não existe → mostra o placeholder. */
+  src?: string | null;
+  class?: string;
+}
+
+const {
+  alt,
+  aspect = 'aspect-[4/5]',
+  label = 'Imagem pendente',
+  src = null,
+  class: className = '',
+} = Astro.props;
+---
+
+{
+  src ? (
+    <img src={src} alt={alt} class={className} loading="lazy" decoding="async" />
+  ) : (
+    <div
+      class={`flex items-center justify-center rounded-2xl bg-beige/40 ${aspect} ${className}`}
+      role="img"
+      aria-label={alt}
+    >
+      <span class="text-[0.65rem] uppercase tracking-[0.2em] text-graphite/50">{label}</span>
+    </div>
+  )
+}

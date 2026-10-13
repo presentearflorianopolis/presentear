@@ -1,0 +1,30 @@
+---
+// Home provisória — montada de verdade na Task 15.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Diferenciais from '../components/Diferenciais.astro';
+import CategoriasOcasiao from '../components/CategoriasOcasiao.astro';
+import SelecaoPresentes from '../components/SelecaoPresentes.astro';
+import Personalizacao from '../components/Personalizacao.astro';
+import SobreMarca from '../components/SobreMarca.astro';
+import CTAFinal from '../components/CTAFinal.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Presentear — Mais que presentes, são momentos que ficam"
+  description="Presentes criativos e personalizados em Florianópolis, feitos para surpreender em qualquer ocasião. Fale com a Presentear pelo WhatsApp."
+>
+  <Header />
+  <main>
+    <Hero />
+    <Diferenciais />
+    <CategoriasOcasiao />
+    <SelecaoPresentes />
+    <Personalizacao />
+    <SobreMarca />
+    <CTAFinal />
+  </main>
+  <Footer />
+</BaseLayout>

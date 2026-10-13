@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PlaceholderImage from '../components/PlaceholderImage.astro';
+import { site } from '../config/site';
+---
+
+<BaseLayout
+  title="Sobre a Presentear — Presentear Florianópolis"
+  description="Conheça a Presentear: presentes criativos, personalizados e montados com cuidado em Florianópolis."
+>
+  <Header />
+  <main class="pt-24">
+    <section class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-16">
+      <div>
+        <h1 class="font-serif text-4xl text-graphite md:text-5xl">{site.textos.sobreTitulo}</h1>
+        <!-- TODO: substituir pelo texto real da marca (hoje é placeholder). -->
+        <p class="mt-5 text-graphite/75">{site.textos.sobreTexto}</p>
+      </div>
+      <PlaceholderImage
+        alt="Retrato/ambiente da Presentear"
+        aspect="aspect-[4/5]"
+        class="w-full"
+        label="Imagem pendente"
+      />
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

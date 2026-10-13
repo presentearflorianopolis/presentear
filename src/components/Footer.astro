@@ -1,0 +1,56 @@
+---
+import { site } from '../config/site';
+import { buildWhatsAppUrl } from '../lib/whatsapp';
+import Logo from './Logo.astro';
+
+const links = [
+  { href: '/', label: 'Início' },
+  { href: '/presentes', label: 'Presentes' },
+  { href: '/presentes#ocasioes', label: 'Ocasiões' },
+  { href: '/#personalize', label: 'Personalize' },
+  { href: '/sobre', label: 'Sobre nós' },
+  { href: '/contato', label: 'Contato' },
+];
+
+const whatsappUrl = buildWhatsAppUrl(
+  'Olá! Vim pelo site da Presentear e gostaria de falar com vocês.',
+);
+---
+
+<footer class="border-t border-beige/50 bg-cream">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:grid-cols-3">
+    <div>
+      <Logo />
+      <p class="mt-4 max-w-xs text-sm text-graphite/70">
+        Presentes criativos, cheios de significado e feitos para surpreender.
+      </p>
+    </div>
+
+    <nav aria-label="Rodapé" class="flex flex-col gap-2 text-sm">
+      {links.map((l) => <a href={l.href} class="text-graphite/75 hover:text-institutional">{l.label}</a>)}
+    </nav>
+
+    <div class="flex flex-col gap-2 text-sm">
+      <a
+        href={site.instagramUrl}
+        target="_blank"
+        rel="noopener"
+        class="text-graphite/75 hover:text-institutional">Instagram</a
+      >
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener"
+        data-track="cta_whatsapp"
+        class="text-graphite/75 hover:text-institutional">WhatsApp</a
+      >
+      <span class="text-graphite/50">{site.whatsappDisplay}</span>
+    </div>
+  </div>
+
+  <div class="border-t border-beige/50">
+    <div class="mx-auto max-w-6xl px-4 py-5 text-center text-xs text-graphite/50">
+      © {new Date().getFullYear()} {site.name} · Florianópolis
+    </div>
+  </div>
+</footer>
