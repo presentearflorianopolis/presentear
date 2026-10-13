@@ -6,7 +6,7 @@
 
 **Architecture:** Site estático (Astro SSG) com HTML leve e JS mínimo. Todo dado comercial e de conteúdo centralizado em `src/config` + `src/data` (tipado). Interatividade isolada em scripts de cliente pequenos: menu móvel, filtro do catálogo, reveal on scroll, validação do formulário. Conversão via links de WhatsApp pré-preenchidos e um formulário que faz POST para um endpoint configurável (Google Apps Script montado após a aprovação local).
 
-**Tech Stack:** Astro ^5, TypeScript ^5, Tailwind CSS ^4 (via `@tailwindcss/vite`), fontes self-hosted (`@fontsource`), Vitest (unit), Playwright (e2e), `@astrojs/sitemap`, `@astrojs/check`.
+**Tech Stack:** Astro ^7, TypeScript ^6, Tailwind CSS ^4 (via `@tailwindcss/vite`), fontes self-hosted (`@fontsource`), Vitest (unit), Playwright (e2e), `@astrojs/sitemap`, `@astrojs/check`. Conforme a skill `astro` (astrolicious/agent-skills): `src/pages` obrigatório; `src/components`/`src/layouts`/`src/styles`/`public` por convenção; definir `site` no `astro.config`; `astro check` e `astro sync` antes do build; nenhum adapter necessário para SSG puro (adapter só se houver renderização sob demanda).
 
 **Spec:** `docs/superpowers/specs/2026-10-13-presentear-site-design.md`
 
@@ -82,6 +82,7 @@ git commit -m "chore: scaffold astro + tailwind + tests"
 **Files:**
 - Create: `src/styles/global.css`
 - Create: `src/layouts/BaseLayout.astro`
+- Modify: `astro.config.mjs` (definir `site`)
 - Modify: `src/pages/index.astro`
 - Create: `tests/e2e/layout.spec.ts`
 
@@ -96,11 +97,15 @@ git commit -m "chore: scaffold astro + tailwind + tests"
 
 Conteúdo: `@import "tailwindcss";` + bloco `@theme` com as cores (Global Constraints) e `--font-serif`/`--font-sans`, e um `:focus-visible` com contorno visível.
 
-- [ ] **Step 3: Escrever o `BaseLayout.astro`**
+- [ ] **Step 3: Definir `site` no `astro.config.mjs`**
 
-`<html lang="pt-BR">`, `<head>` com `<title>`, `<meta name="description">`, viewport, `<link rel="canonical">`, `<slot />`, e import do `global.css`. Sem JavaScript de terceiros.
+Adicionar `site: 'https://presentear.example.com'` (URL **placeholder** — `example.com` é reservado; substituir pelo domínio real depois; alimenta canonical e sitemap). Marcar com comentário `// TODO: domínio real`.
 
-- [ ] **Step 4: Escrever o teste e2e**
+- [ ] **Step 4: Escrever o `BaseLayout.astro`**
+
+`<html lang="pt-BR">`, `<head>` com `<title>`, `<meta name="description">`, viewport, `<link rel="canonical" href={new URL(canonicalPath ?? Astro.url.pathname, Astro.site)}>`, `<slot />`, e import do `global.css`. Sem JavaScript de terceiros.
+
+- [ ] **Step 5: Escrever o teste e2e**
 
 ```ts
 // tests/e2e/layout.spec.ts
@@ -112,12 +117,12 @@ test('home tem lang pt-BR e título', async ({ page }) => {
 });
 ```
 
-- [ ] **Step 5: Rodar e verificar**
+- [ ] **Step 6: Rodar e verificar**
 
 Run: `npm run test:e2e -- tests/e2e/layout.spec.ts`
 Expected: PASS.
 
-- [ ] **Step 6: Commit**
+- [ ] **Step 7: Commit**
 
 ```bash
 git add -A && git commit -m "feat: design tokens, fonts, base layout"
@@ -864,7 +869,7 @@ git add -A && git commit -m "feat: scroll reveal animations with reduced-motion 
 **Files:**
 - Modify: `src/layouts/BaseLayout.astro` (OG/Twitter tags, JSON-LD `Organization`)
 - Create: `src/pages/robots.txt.ts`
-- Modify: `astro.config.mjs` (`@astrojs/sitemap`, `site` com domínio placeholder em `site.ts`)
+- Modify: `astro.config.mjs` (`@astrojs/sitemap`; `site` já definido na Task 2 e usado no sitemap/canonical)
 - Create: `tests/e2e/a11y.spec.ts`
 
 **Interfaces:**
@@ -902,14 +907,17 @@ git add -A && git commit -m "feat: seo metadata, sitemap and accessibility check
 ### Task 21: Preparação de deploy e documentação
 
 **Files:**
-- Create: `vercel.json` (ou `@astrojs/vercel` se necessário — provavelmente **não** para site estático)
+- Create: `vercel.json` (opcional). **Não** adicionar adapter `@astrojs/vercel`: o site é SSG puro (formulário envia por `fetch` client-side para o Apps Script), então não há renderização sob demanda.
 - Create: `README.md`
 - Modify: `.env.example`
 
 **Interfaces:**
 - Produces: build estático em `dist/` pronto para Vercel; `README` com passos de dev, build, env e os pendentes (logo, fotos, e-mail, Apps Script, mensuração).
 
-- [ ] **Step 1: Verificar build de produção** — Run: `npm run build` → `dist/` gerado sem erros; `npm run check` sem erros de tipo.
+- [ ] **Step 1: Verificar build de produção (workflow da skill `astro`)**
+
+Run: `npx astro sync && npm run check && npm run build`
+Expected: `check` sem erros de tipo; `build` gera `dist/` — conferir que `dist/` existe e **não está vazio** (`ls dist | wc -l` > 0).
 
 - [ ] **Step 2: Escrever o `README.md`** com: requisitos, comandos, variáveis (`PUBLIC_FORM_ENDPOINT`), estrutura de pastas, e a lista de pendências/§17 do design.
 
