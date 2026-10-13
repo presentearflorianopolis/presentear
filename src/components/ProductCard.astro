@@ -1,0 +1,56 @@
+---
+import type { Produto } from '../data/produtos';
+import { buildProdutoUrl } from '../lib/whatsapp';
+import { site } from '../config/site';
+import PlaceholderImage from './PlaceholderImage.astro';
+
+interface Props {
+  produto: Produto;
+}
+
+const { produto } = Astro.props;
+const url = buildProdutoUrl(produto.nome);
+---
+
+<article
+  class="group flex flex-col"
+  data-categoria={produto.categoriaId}
+  data-produto={produto.id}
+>
+  <a
+    href={url}
+    target="_blank"
+    rel="noopener"
+    data-track="clique_produto"
+    aria-label={`Ver ${produto.nome} no WhatsApp`}
+    class="block overflow-hidden rounded-2xl"
+  >
+    <PlaceholderImage
+      alt={produto.imagemAlt}
+      src={produto.imagem}
+      aspect="aspect-[4/5]"
+      class="w-full transition-transform duration-500 group-hover:scale-[1.03]"
+    />
+  </a>
+
+  {
+    produto.etiqueta && (
+      <span class="mt-4 self-start rounded-full bg-terracotta/15 px-3 py-1 text-[0.65rem] uppercase tracking-[0.2em] text-terracotta">
+        {produto.etiqueta}
+      </span>
+    )
+  }
+
+  <h3 class="mt-3 font-serif text-2xl text-graphite">{produto.nome}</h3>
+  <p class="mt-1 text-sm text-graphite/70">{produto.descricao}</p>
+
+  <a
+    href={url}
+    target="_blank"
+    rel="noopener"
+    data-track="clique_produto"
+    class="mt-4 inline-flex items-center gap-2 self-start rounded-full border border-institutional px-5 py-2.5 text-sm font-medium text-institutional transition-colors hover:bg-institutional hover:text-cream"
+  >
+    {site.textos.ctaProduto}
+  </a>
+</article>
