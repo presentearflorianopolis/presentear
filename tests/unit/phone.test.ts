@@ -14,4 +14,11 @@ describe('phone', () => {
   it('rejeita curto', () => {
     expect(isValidPhoneBR('123')).toBe(false);
   });
+  it('aceita fixo de 10 dígitos com +55', () => {
+    expect(isValidPhoneBR('+55 48 3333-4444')).toBe(true);
+  });
+  it('não confunde DDD 55 com código do país', () => {
+    expect(isValidPhoneBR('5533334444')).toBe(true);
+    expect(maskPhoneBR('5533334444')).toBe('(55) 3333-4444');
+  });
 });

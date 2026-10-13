@@ -1,6 +1,7 @@
 import { site } from '../config/site';
-import { validateOrcamento, buildOrcamentoPayload } from '../lib/orcamento';
+import { validateOrcamento, buildOrcamentoPayload, type OrcamentoInput } from '../lib/orcamento';
 import { maskPhoneBR } from '../lib/phone';
+import { buildWhatsAppUrl } from '../lib/whatsapp';
 import { track } from '../lib/track';
 
 type Field = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
@@ -25,9 +26,23 @@ if (form) {
     get(name)?.setAttribute('aria-invalid', message ? 'true' : 'false');
   };
 
-  const falhar = (mensagem: string): void => {
+  const falhar = (mensagem: string, input?: OrcamentoInput): void => {
     if (status) status.textContent = mensagem;
-    if (waFallback) waFallback.hidden = false;
+    if (waFallback) {
+      const linhas = [
+        'Olá! Tentei enviar um pedido de orçamento pelo site da Presentear.',
+        ...(input
+          ? [
+              `Nome: ${input.nome}`,
+              `WhatsApp: ${input.whatsapp}`,
+              `Ocasião: ${input.ocasiao}`,
+              input.descricao ? `Detalhes: ${input.descricao}` : '',
+            ]
+          : []),
+      ];
+      waFallback.href = buildWhatsAppUrl(linhas.filter(Boolean).join('\n'));
+      waFallback.hidden = false;
+    }
   };
 
   form.addEventListener('submit', async (event) => {
@@ -57,6 +72,7 @@ if (form) {
     if (!site.formEndpoint) {
       falhar(
         'Não foi possível enviar agora — o canal de orçamento está em configuração. Fale com a gente pelo WhatsApp.',
+        input,
       );
       return;
     }
@@ -75,6 +91,7 @@ if (form) {
     } catch {
       falhar(
         'Não conseguimos enviar seu pedido agora. Tente novamente ou fale com a gente pelo WhatsApp.',
+        input,
       );
     }
   });

@@ -10,3 +10,8 @@ test('filtro por categoria esconde os demais', async ({ page }) => {
   }
   expect(await cards.count()).toBeGreaterThan(0);
 });
+
+test('a âncora de Ocasiões existe no catálogo', async ({ page }) => {
+  await page.goto('/presentes');
+  await expect(page.locator('#ocasioes')).toHaveCount(1);
+});

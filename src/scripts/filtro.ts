@@ -1,4 +1,5 @@
 // Filtro client-side do catálogo, dirigido por `?categoria=<id>`.
+import { track } from '../lib/track';
 
 function aplicar(cat: string): void {
   document.querySelectorAll<HTMLElement>('[data-categoria]').forEach((el) => {
@@ -29,6 +30,5 @@ document.getElementById('filtros')?.addEventListener('click', (e) => {
   if (!btn) return;
   const cat = btn.dataset.filtro ?? '';
   aplicar(cat);
-  const w = window as unknown as { dataLayer?: unknown[] };
-  if (Array.isArray(w.dataLayer)) w.dataLayer.push({ event: 'categoria', categoria: cat });
+  track('categoria', { categoria: cat });
 });
